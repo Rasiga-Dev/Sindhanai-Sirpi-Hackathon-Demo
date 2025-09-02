@@ -15,4 +15,7 @@ const JullyPDFSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('JullyPDF', JullyPDFSchema);
+
+const juryPDFModel = mongoose.model('JullyPDF', JullyPDFSchema);
+
+export default juryPDFModel;

@@ -56,4 +56,7 @@ const draftSchema = new mongoose.Schema({
 // Add TTL index to auto-delete drafts after 7 days of inactivity
 draftSchema.index({ lastUpdated: 1 }, { expireAfterSeconds: 7 * 24 * 60 * 60 });
 
-export default mongoose.model('Draft', draftSchema);
+
+const draftModel = mongoose.model('Draft', draftSchema);
+
+export default draftModel;
