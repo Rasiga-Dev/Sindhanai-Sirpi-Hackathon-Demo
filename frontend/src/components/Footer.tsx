@@ -31,7 +31,7 @@ export function Footer() {
       { name: 'Schedule', href: '/schedule' },
       { name: 'Guidelines', href: '/guidelines' },
       { name: 'Gallery', href: '/gallery' },
-      { name: 'Speakers', href: '/speakers' },
+      { name: 'Winners', href: '/speakers' },
     ],
     legal: [
       { name: 'Privacy Policy', href: '/privacy-policy' },

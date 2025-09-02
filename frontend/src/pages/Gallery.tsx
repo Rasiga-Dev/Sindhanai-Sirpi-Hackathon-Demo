@@ -9,24 +9,14 @@ export function Gallery() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const galleryItems = [
-    {
-      image: "image-2.jpg",
-      title: "Recognized for Service: Vosa Tech Jury Member at EDII-TN District-Level Boot Camp",
-      description: "Honored to receive the EDII-TN Certificate of Appreciation for serving as a jury member at the District-Level Boot Camp on 30-01-2025 at Holy Cross Engineering College, Thoothukudi. Proud to contribute to the School Innovation Development Project and witness young innovators showcase their talents!",
-      details: "In this space, we brainstorm, prototype, and build innovative solutions that have a real-world impact."
-    },
+
     {
       image: "image-1.jpg",
       title: "Vosa Tech Signs MOU with EDII-TN to Launch Private School Hackathon Across Six Districts",
       description: "We are excited to announce that Vosa Tech, Tirunelveli, has officially signed an MOU with EDII-TN to collaboratively organize a Private School Hackathon across six districts-Madurai, Thoothukudi, Tirunelveli, Virudhunagar, Kanyakumari, and Tenkasi! This initiative aims to empower school students with hands-on experience in innovation, problem-solving, and technology, fostering the next generation of tech leaders. A special thanks to Dr. Ambalavanan IAAS for signing this MOU and supporting this transformative journey. We are proud to be part of this mission to inspire young minds and drive digital innovation! Stay tuned for more updates. Let's build the future together!",
       details: "Vosa Tech Signs MOU."
     },
-    {
-      image: "image-4.jpg",
-      title: "Vosa Tech Receives Recognition from Dr. Ambalavanan IAAS",
-      description: "We are happy to announce that Vosa Tech received an award from Dr. Ambalavanan IAAS at Holy Cross College, Thoothukudi! This recognition fuels our passion for innovation, technology, and education. A huge thank you to Dr. Ambalavanan IAAS and Holy Cross College for this honor",
-      details: "Vosa Tech Receives Recognition."
-    }
+
   ];
 
   const handleImageClick = (item) => {
@@ -44,6 +34,29 @@ export function Gallery() {
       transition={{ duration: 0.6 }}
       className="space-y-16 sm:px-6 lg:px-8 max-w-8xl mx-auto"
     >
+      <section className="relative bg-white p-0 rounded-3xl shadow-2xl overflow-hidden">
+        {/* Video */}
+        <video
+          className="w-full h-[600px] object-cover rounded-3xl" // height increased
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/videos/hackathon.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        {/* Mirror Glass Overlay */}
+        <div className="absolute inset-0 bg-black/40 flex items-end justify-center rounded-3xl">
+          <h1 className="mb-6 text-white text-2xl sm:text-4xl font-extrabold tracking-wide drop-shadow-lg backdrop-blur-md px-6 py-3 rounded-xl">
+            🎉 SINDHANAI SIRPI HACKATHON INAUGURATION CEREMONY 🎊
+
+          </h1>
+        </div>
+      </section>
+
+
       {/* Featured Gallery Section */}
       <section className="bg-white p-6 sm:p-10 rounded-3xl shadow-2xl">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-red-800 mb-4 drop-shadow">
