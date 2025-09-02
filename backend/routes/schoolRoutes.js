@@ -11,13 +11,6 @@ const storage = multer.memoryStorage(); // file data as buffer
 const upload = multer({ storage });
 const router = express.Router();
 
-// const upload = multer();
-
-
-
-// Configure multer for file uploads
-// const storage = multer.memoryStorage();
-
 
 // Get all schools
 router.get('/schools', async (req, res) => {
@@ -115,29 +108,6 @@ router.post('/login', async (req, res) => {
 
 
 
-// router.post('/register', async (req, res) => {
-//   try {
-//     const { udiseCode, password } = req.body;
-//     const school = await School.findOne({ UDISE_Code: parseInt(udiseCode) });
-
-//     if (!school) return res.status(404).json({ message: 'School not found' });
-
-//     if (school.status === 'registered') {
-//       return res.status(400).json({ message: 'School already registered.Please login...' });
-//     }
-
-//     const hashedPassword = await bcrypt.hash(password, 10);
-//     school.password = hashedPassword;
-//     school.status = 'registered';
-//     await school.save();
-
-//     res.status(200).json({ message: 'Registered successfully' });
-//   } catch (err) {
-//     console.error('Error in register route:', err);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// });
-
 router.post('/register', async (req, res) => {
   try {
     const { udiseCode, password, hmName, hmEmail, hmMobile } = req.body;
@@ -167,17 +137,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Set up multer storage for uploaded files
-// Multer config
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, 'uploads/documents/');
-//   },
-//   filename: function (req, file, cb) {
-//     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-//     cb(null, uniqueSuffix + path.extname(file.originalname)); // path is now defined
-//   }
-// });
 
 
 
@@ -185,14 +144,11 @@ router.post('/register', async (req, res) => {
 function verifyToken(req, res, next) {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ message: 'No token provided' });
-  // Verify your token here (e.g., JWT)
-  // if verified:
+
   next();
-  // else return res.status(403).json({ message: 'Invalid token' });
+  
 }
 
-// Save draft endpoint
-// Add these routes to your existing schoolRoutes.js
 
 // Save draft
 router.post('/drafts', authenticateToken, async (req, res) => {
@@ -264,56 +220,6 @@ router.delete('/drafts/:udiseCode', authenticateToken, async (req, res) => {
 });
 
 
-
-// router.post('/submit-idea', async (req, res) => {
-
-
-//   try {
-//     const { udiseCode, projectDetails, studentDetails, bmcDetails } = req.body;
-
-//     const school = await School.findOne({ UDISE_Code: udiseCode });
-
-//     if (!school) {
-//       return res.status(404).json({ message: 'School not found with the provided UDISE code.' });
-//     }
-
-//     let parsedProjectDetails = {};
-//     let parsedStudentDetails = [];
-//     let parsedBmcDetails = {};
-
-//     try {
-//       parsedProjectDetails = projectDetails ? JSON.parse(projectDetails) : {};
-//       parsedStudentDetails = studentDetails ? JSON.parse(studentDetails) : [];
-//       parsedBmcDetails = bmcDetails ? JSON.parse(bmcDetails) : {};
-//     } catch (error) {
-//       console.error('JSON parsing error:', error);
-//       return res.status(400).json({ message: 'Invalid data format' });
-//     }
-
-//     // Save file buffer in MongoDB
-//     const newSubmission = {
-//       projectDetails: {
-//         title: parsedProjectDetails.ideaTitle,
-//         description: parsedProjectDetails.ideaDescription,
-//         teamSize: parsedProjectDetails.teamSize,
-//         problemStatement: parsedProjectDetails.problemStatement,
-//         solution: parsedProjectDetails.solution,
-//       },
-//       studentDetails: parsedStudentDetails,
-//       bmcDetails: parsedBmcDetails,
-//       evaluationStatus: 'pending'
-//     };
-
-//     school.submissions.push(newSubmission);
-
-//     await school.save();
-
-//     res.status(200).json({ message: 'Idea submitted successfully!' });
-//   } catch (error) {
-//     console.error('Error submitting idea:', error);
-//     res.status(500).json({ message: 'Failed to submit the idea. Please try again later.' });
-//   }
-// });
 router.post('/submit-idea', upload.none(), async (req, res) => {
   try {
     const { udiseCode, projectDetails, studentDetails, bmcDetails, transactionId } = req.body;
@@ -364,39 +270,6 @@ router.post('/submit-idea', upload.none(), async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
-
-
-// POST /api/upload-document/:schoolId/:submissionIndex
-// router.post('/upload-document/:projectId', upload.single('document'), async (req, res) => {
-//   try {
-//     const { projectId } = req.params;
-//     const file = req.file;
-
-//     // Find the school with this submission._id
-//     const school = await School.findOne({ "submissions._id": projectId });
-
-//     if (!school) return res.status(404).json({ msg: 'Submission not found' });
-
-//     // Get the submission
-//     const submission = school.submissions.id(projectId);
-//     if (!submission) return res.status(404).json({ msg: 'Submission not found' });
-
-//     // Save the document
-//     submission.documentFile = {
-//       filename: file.originalname,
-//       contentType: file.mimetype,
-//       data: file.buffer,
-//     };
-
-//     await school.save();
-
-//     res.status(200).json({ msg: 'Document uploaded successfully' });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ msg: 'Server error' });
-//   }
-// });
-
 
 
 router.post('/upload-document/:projectId', upload.single('document'), async (req, res) => {
@@ -452,49 +325,6 @@ router.get('/project/:projectId', async (req, res) => {
     res.status(500).json({ msg: 'Server error' });
   }
 });
-
-
-
-
-// router.get('/dashboard', authenticateToken, async (req, res) => {
-//   try {
-//     const school = await School.findById(req.user.schoolId);
-//     if (!school) {
-//       return res.status(404).json({ message: 'School not found' });
-//     }
-
-//     // Calculate dashboard metrics
-//     const totalProjects = school.submissions?.length || 0;
-//     const guideTeachers = school.guideTeachers?.length || 0;
-
-//     // Calculate total students from all submissions
-//     const studentsCount = school.submissions?.reduce((total, submission) => {
-//       return total + (submission.studentDetails?.length || 0);
-//     }, 0) || 0;
-
-//     const hasFilteredAverage = school.submissions?.some(sub => sub.averageFilter === 'filtered') || false;
-
-
-//     // Return dashboard data
-//     res.status(200).json({
-//       totalProjects,
-//       guideTeachers,
-//       submittedIdeas: totalProjects, // Same as totalProjects for now
-//       studentsCount,
-//       hasFilteredAverage
-//     });
-//   } catch (err) {
-//     console.error('Error fetching dashboard data:', err);
-//     res.status(500).json({ message: 'Error fetching dashboard data' });
-//   }
-// });
-
-
-
-
-//get all schools
-
-
 
 
 // get school particular
@@ -681,9 +511,6 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 });
-
-
-
 
 
 export default router;

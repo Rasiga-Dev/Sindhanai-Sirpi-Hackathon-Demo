@@ -63,8 +63,7 @@ app.use('/api/evaluator', evaluatorRoutes);
 app.use('/api/admin', adminRoutes);
 app.use("/api/payment", payment);
 app.use("/api/dpm", dpm);
-// app.use('/jullypdfs', express.static('public/jullypdfs'));
-// app.use("/api/jully", jully);
+
 app.use('/api/jully', jullyRoute);
 
 
