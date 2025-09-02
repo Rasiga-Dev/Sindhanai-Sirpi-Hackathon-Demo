@@ -13,6 +13,7 @@ import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import html2pdf from 'html2pdf.js';
 import BankAccountDetails from './admin/BankAccountDetails';
+import { BASE_URL } from '../config/api';
 
 
 // import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
@@ -89,7 +90,7 @@ export default function SchoolDashboard() {
     // Fetch the dashboard data
     const fetchDashboardData = async () => {
       try {
-        const response = await axios.get('http://localhost:11129/api/schools/dashboard', {
+        const response = await axios.get(`${BASE_URL}/schools/dashboard`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setDashboardData(response.data);

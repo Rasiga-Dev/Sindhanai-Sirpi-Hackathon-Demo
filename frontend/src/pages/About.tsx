@@ -4,7 +4,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Brain, Trophy, Users2, Lightbulb } from 'lucide-react';
-// import { FaMoneyBillWave, FaTrophy, FaUserGraduate, FaLightbulb, FaUsers } from "react-icons/fa";
 import { FaMoneyBillWave, FaTrophy, FaUserGraduate, FaLightbulb, FaUsers, FaCode, FaRobot, FaLaptopCode } from "react-icons/fa";
 
 
@@ -22,59 +21,6 @@ export function About() {
         </div>
       </div>
 
-      {/* 🌟 About Section */}
-      {/* <div className="px-6 py-16 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <motion.img
-          src="/sinthanai_sirpi.jpg"
-          alt="About Us"
-          className="h-[550px] w-full object-fit rounded-x"
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-        />
-
-
-        <motion.div
-          className="space-y-6"
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl font-extrabold text-red-800">About Sinthanai Sirpi Hackathon</h2>
-          <p className="text-gray-600 leading-relaxed text-lg">
-            SINTHANAI SIRPI is where ideas meet innovation. It’s a vibrant space for students and creators to solve real-world problems, gain mentorship, and showcase their skills.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            <div className="bg-red-100 p-6 rounded-lg shadow hover:shadow-md transition">
-              <h3 className="font-semibold text-red-800 text-lg">Innovation</h3>
-              <p className="text-sm text-gray-700 mt-1">Smart solutions for real challenges.</p>
-            </div>
-            <div className="bg-red-100 p-6 rounded-lg shadow hover:shadow-md transition">
-              <h3 className="font-semibold text-red-800 text-lg">Collaboration</h3>
-              <p className="text-sm text-gray-700 mt-1">Great ideas start with teamwork.</p>
-            </div>
-            <div className="bg-red-100 p-6 rounded-lg shadow hover:shadow-md transition">
-              <h3 className="font-semibold text-red-800 text-lg">Leadership</h3>
-              <p className="text-sm text-gray-700 mt-1">Lead and inspire change.</p>
-            </div>
-            <div className="bg-red-100 p-6 rounded-lg shadow hover:shadow-md transition">
-              <h3 className="font-semibold text-red-800 text-lg">Impact</h3>
-              <p className="text-sm text-gray-700 mt-1">Make a difference that matters.</p>
-            </div>
-            <div className="bg-red-100 p-6 rounded-lg shadow hover:shadow-md transition">
-              <h3 className="font-semibold text-red-800 text-lg">Learning</h3>
-              <p className="text-sm text-gray-700 mt-1">Gain skills & mentorship.</p>
-            </div>
-            <div className="bg-red-100 p-6 rounded-lg shadow hover:shadow-md transition">
-              <h3 className="font-semibold text-red-800 text-lg">Recognition</h3>
-              <p className="text-sm text-gray-700 mt-1">Prizes, certificates & growth.</p>
-            </div>
-          </div>
-        </motion.div>
-
-      </div> */}
 
       <div className="px-6 py-16 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative">
         {/* Image with icons */}

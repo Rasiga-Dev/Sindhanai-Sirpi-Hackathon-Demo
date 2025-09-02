@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BMCLayout from '../BMCLayout';
+import { BASE_URL } from "../../config/api";
 
 
 export default function L1LevelList({ projects, username }) {
@@ -26,7 +27,7 @@ export default function L1LevelList({ projects, username }) {
             setIsLoading(true); // start loading
             try {
                 const token = localStorage.getItem('evaluatorToken');
-                const response = await axios.get('http://localhost:11129/api/evaluator/level-1-list', {
+                const response = await axios.get(`${BASE_URL}/evaluator/level-1-list`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setProjects(response.data);

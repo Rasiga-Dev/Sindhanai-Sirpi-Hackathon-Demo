@@ -1,12 +1,3 @@
-// import React from 'react'
-
-// const L2LevelList = () => {
-//   return (
-//     <div>L2LevelList</div>
-//   )
-// }
-
-// export default L2LevelList
 
 
 import React, { useEffect, useState } from 'react';

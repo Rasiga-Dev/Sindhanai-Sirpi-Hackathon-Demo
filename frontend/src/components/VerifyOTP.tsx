@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Key, Loader, AlertCircle } from 'lucide-react';
 import axios from 'axios';
+import { BASE_URL } from '../config/api';
 
 export function VerifyOTP() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export function VerifyOTP() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:11129/api/auth/verify-otp', {
+      const response = await axios.post(`${BASE_URL}/auth/verify-otp`, {
         email,
         otp,
       });

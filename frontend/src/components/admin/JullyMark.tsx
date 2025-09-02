@@ -5,6 +5,7 @@ import axios from 'axios';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { CheckCircle } from 'lucide-react';
+import { BASE_URL } from "../../config/api";
 
 const JullyMark = () => {
     const [projects, setProjects] = useState([]);
@@ -20,7 +21,7 @@ const JullyMark = () => {
 
     useEffect(() => {
         // 1st API Call: jully-marks
-        axios.get('http://localhost:11129/api/admin/jully-marks')
+        axios.get(`${BASE_URL}/admin/jully-marks`)
             .then((res) => {
                 const fetched = res.data;
                 const saved = {};
@@ -47,10 +48,10 @@ const JullyMark = () => {
 
         // 2nd API Call: latest-pdf
         axios
-            .get('http://localhost:11129/api/jully/latest')
+            .get(`${BASE_URL}/jully/latest`)
             .then((res) => {
                 if (res.data) {
-                    setPdfURL(`http://localhost:11129/api/jully/pdf/${res.data.filename}`);
+                    setPdfURL(`${BASE_URL}/api/jully/pdf/${res.data.filename}`);
                     setPdfName(res.data.originalName);
                     setIsUploaded(true);
                 }
@@ -143,7 +144,7 @@ const handleExportPDF = () => {
         };
 
         try {
-            await axios.post('http://localhost:11129/api/admin/jully-marks/save', payload);
+            await axios.post(`${BASE_URL}/admin/jully-marks/save`, payload);
 
             setProjects((prev) => prev.filter(p => p.submissionId !== item.submissionId));
             setAllProjects((prev) => prev.filter(p => p.submissionId !== item.submissionId));
@@ -172,14 +173,14 @@ const handleExportPDF = () => {
         formData.append('pdf', file);
 
         try {
-            const response = await axios.post('http://localhost:11129/api/jully/upload', formData, {
+            const response = await axios.post(`${BASE_URL}/jully/upload`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
 
             const uploadedFilename = response.data.data.filename;
-            const previewURL = `http://localhost:11129/api/jully/pdf/${uploadedFilename}`;
+            const previewURL = `${BASE_URL}/jully/pdf/${uploadedFilename}`;
             setPdfURL(previewURL); // ✅ Set the preview URL
 
             alert('Upload successful!');
@@ -305,19 +306,7 @@ const handleExportPDF = () => {
                             />
                         </div>
 
-                        {/* <div>
-                            <label className="block font-medium mb-1">Preview Document:</label>
-                            {pdfURL ? (
-                                <iframe
-                                    src={pdfURL}
-                                    title="Uploaded Document"
-                                    className="w-full h-60 border rounded"
-                                ></iframe>
-                            ) : (
-                                <p className="text-gray-500">No document uploaded yet.</p>
-                            )}
-                        </div> */}
-                        {/* <h2 className="font-bold text-lg mb-2">{originalName}</h2> */}
+                      
                         {pdfURL && (
                             <iframe
                                 src={pdfURL}

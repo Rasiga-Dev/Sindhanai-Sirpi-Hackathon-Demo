@@ -1,169 +1,3 @@
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import BMCLayout from '../BMCLayout';
-
-// interface Score {
-//   evaluatorName: string;
-//   score: number;
-//   status: string;
-//   evaluatedAt: string;
-// }
-
-// interface Project {
-//   schoolId: string;
-//   projectId: string;
-//   projectTitle: string;
-//   projectDescription: string;
-//   problemStatement: string;
-//   solution: string;
-//   evaluationScores: Score[];
-// }
-
-// const AverageProjectsList = () => {
-//   const [projects, setProjects] = useState<Project[]>([]);
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [showModal, setShowModal] = useState(false);
-//   const [selectedProject, setSelectedProject] = useState(null);
-
-
-//   useEffect(() => {
-//     fetchProjects();
-//   }, []);
-
-
-//   const fetchProjects = async () => {
-//     setIsLoading(true);
-//     try {
-//       const response = await axios.get('http://localhost:11129/api/evaluator/average-projects');
-//       setProjects(response.data);
-//       console.log('Fetched average projects:', response.data);
-//     } catch (err) {
-//       console.error('Summary fetch error:', err);
-//     } finally {
-//       setIsLoading(false); // end loading
-//     }
-//   };
-
-//   const calculateAverage = (scores: Score[]) => {
-//     if (scores.length !== 3) return '0.00';
-//     const total = scores.reduce((acc, curr) => acc + curr.score, 0);
-//     return (total / 3).toFixed(2);
-//   };
-
-//   const openModal = (project) => {
-//     setSelectedProject(project);
-//     setShowModal(true);
-//   };
-
-//   const closeModal = () => {
-//     setShowModal(false);
-//     setSelectedProject(null);
-//   };
-
-//   return (
-//     <div className="p-6 overflow-auto">
-//       <h2 className="text-xl font-bold mb-4 text-gray-800">Projects Evaluated by 3 Evaluators</h2>
-//       {isLoading ? (
-//         <div className="text-center py-10 text-lg font-medium text-gray-600">
-//           Loading projects...
-//           <div className="flex justify-center items-center py-10">
-//             <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-red-800"></div>
-//           </div>
-//         </div>
-//       ) : projects.length === 0 ? (
-//         <p>No projects found.</p>
-//       ) : (
-
-//         <div className="overflow-x-auto">
-
-//           <table className="min-w-full border border-gray-300 text-sm">
-//             <thead className="bg-gray-100 text-gray-700">
-//               <tr>
-//                 <th className="border px-3 py-2">#</th>
-//                 <th className="border px-3 py-2">Project Title</th>
-//                 <th className="border px-3 py-2">Project Description</th>
-//                 <th className="border px-3 py-2">Project Statement</th>
-//                 <th className="border px-3 py-2">Solution</th>
-//                 <th className="border px-3 py-2">BMC Details</th>
-//                 <th className="border px-3 py-2">Evaluator Scores</th>
-//                 <th className="border px-3 py-2">Average Score</th>
-//                 <th className="border px-3 py-2">Actions</th>
-
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {projects.map((project, idx) => (
-//                 <tr key={project.projectId} className="text-center hover:bg-gray-50">
-//                   <td className="border px-3 py-2">{idx + 1}</td>
-//                   <td className="border px-3 py-2">{project.projectTitle}</td>
-//                   <td className="border px-3 py-2">{project.projectDescription}</td>
-//                   <td className="border px-3 py-2">{project.problemStatement}</td>
-//                   <td className="border px-3 py-2">{project.solution}</td>
-//                   <td className="p-2 border">
-//                     <button
-//                       onClick={() => openModal(project)}
-//                       className="text-blue-600 underline hover:text-blue-800"
-//                     >
-//                       View BMC
-//                     </button>
-//                   </td>
-//                   <td className="border px-3 py-2 text-left">
-//                     <ul className="list-disc list-inside">
-//                       {project.evaluationScores.map((score, index) => (
-//                         <li key={index}>
-//                           <span className="font-medium capitalize">{score.evaluatorName}</span>: {score.score}
-//                         </li>
-//                       ))}
-//                     </ul>
-//                   </td>
-
-//                   <td className="border px-3 py-2 text-green-800 font-semibold">
-//                     {calculateAverage(project.evaluationScores)}
-//                   </td>
-//                   <td className="border px-3 py-2">
-//                     <button className="bg-green-800 text-white px-4 py-2 rounded hover:bg-blue-600">
-//                       Accept
-//                     </button>
-//                     <button className="bg-red-800 text-white px-4 py-2 rounded hover:bg-blue-600">
-//                       Reject
-//                     </button>
-//                   </td>
-
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-//         </div>
-//       )}
-
-//       {/* Modal */}
-//       {showModal && selectedProject && (
-//         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-//           <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-auto p-6 relative">
-//             <button
-//               className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-2xl font-bold"
-//               onClick={closeModal}
-//               aria-label="Close modal"
-//             >
-//               &times;
-//             </button>
-//             <BMCLayout
-//               bmcDetails={selectedProject.bmcDetails}
-//               schoolId={selectedProject.schoolId}
-//               projectId={selectedProject.projectId}
-//               projectTitle={selectedProject.projectTitle}
-//               projectDescription={selectedProject.projectDescription}
-//               projectProblemStatement={selectedProject.problemStatement}
-//               projectSolution={selectedProject.solution}
-//             />
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default AverageProjectsList;
 
 
 import React, { useEffect, useState } from 'react';
@@ -172,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import BMCLayout from '../BMCLayout';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import { BASE_URL } from "../../config/api";
 
 
 interface Score {
@@ -210,7 +45,7 @@ const AverageProjectsList = () => {
   const fetchProjects = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get('http://localhost:11129/api/evaluator/average-projects');
+      const response = await axios.get(`${BASE_URL}/evaluator/average-projects`);
       setProjects(response.data);
     } catch (err) {
       console.error('Error fetching projects:', err);
@@ -226,7 +61,7 @@ const AverageProjectsList = () => {
     avg: string
   ) => {
     try {
-      await axios.put('http://localhost:11129/api/evaluator/update-evaluation-status', {
+      await axios.put(`${BASE_URL}/evaluator/update-evaluation-status`, {
         schoolId,
         projectId,
         status,

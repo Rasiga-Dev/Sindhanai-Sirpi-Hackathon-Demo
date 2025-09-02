@@ -4,11 +4,12 @@
 import React from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BASE_URL } from '../config/api';
 
 const HackathonPage = () => {
   const handleDownloadTemplate = async () => {
     try {
-      const response = await fetch('http://localhost:11129/api/download/template');
+      const response = await fetch(`${BASE_URL}/download/template`);
       if (!response.ok) throw new Error('Failed to download template');
       
       const blob = await response.blob();

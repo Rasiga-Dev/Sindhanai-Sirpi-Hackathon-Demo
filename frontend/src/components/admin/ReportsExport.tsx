@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import { BASE_URL } from "../../config/api";
+
 
 type ReportItem = {
   label: string;
@@ -17,7 +19,7 @@ const reports: ReportItem[] = [
 const ReportsExport: React.FC = () => {
   const handleDownload = async (path: string) => {
     try {
-      const response = await axios.get(`http://localhost:11129/api/admin/${path}`, {
+      const response = await axios.get(`${BASE_URL}/admin/${path}`, {
         responseType: 'blob',
       });
 
