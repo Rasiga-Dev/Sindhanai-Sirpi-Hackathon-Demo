@@ -1,6 +1,5 @@
 
-const { profile } = require('console');
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Define the schema for school data
 const schoolSchema = new mongoose.Schema({
