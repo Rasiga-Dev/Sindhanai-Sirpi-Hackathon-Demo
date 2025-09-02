@@ -1,2 +1,1 @@
-// src/config/api.ts
-export const BASE_URL: string = "https://sindhanai-sirpi-hackathon-demo.onrender.com/api";
+export const BASE_URL: string = import.meta.env.VITE_BASE_URL as string;
