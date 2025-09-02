@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const JullyPDFSchema = new mongoose.Schema({
   originalName: {
@@ -12,9 +12,8 @@ const JullyPDFSchema = new mongoose.Schema({
   uploadedAt: {
     type: Date,
     default: Date.now,
-  }
+  },
 });
-
 
 const juryPDFModel = mongoose.model('JullyPDF', JullyPDFSchema);
 
