@@ -1,13 +1,12 @@
 
 
 
-const express = require('express');
+import express from 'express';
+import multer from 'multer';
+import path from 'path';
+import JullyPDF from '../models/JullyPDF.js';
+
 const router = express.Router();
-const multer = require('multer');
-const path = require('path');
-const JullyPDF = require('../models/JullyPDF');
-
-
 
 // Set up Multer storage
 const storage = multer.diskStorage({
