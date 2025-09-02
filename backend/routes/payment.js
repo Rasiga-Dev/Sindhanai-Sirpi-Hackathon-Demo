@@ -216,7 +216,7 @@ router.post("/verify", async (req, res) => {
       school.submissions.push({
         transactionId: razorpay_payment_id,
         paymentStatus: "successful",
-        paymentAmount: 1,
+        paymentAmount: 500,
         submittedAt: new Date(),
       });
 

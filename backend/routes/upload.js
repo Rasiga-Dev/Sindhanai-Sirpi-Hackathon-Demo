@@ -32,4 +32,4 @@ router.post("/upload-pdf", upload.single("pdf"), (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;
